@@ -16,7 +16,6 @@ export default function Navbar() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/courses">Courses</Link></li>
           <li><Link href="/placement">Job Placement</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
           <li><button onClick={openEnroll} className="nav-cta" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Enroll Now</button></li>
         </ul>
         <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
