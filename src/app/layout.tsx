@@ -1,11 +1,12 @@
+import type { Metadata } from 'next';
 import { AppProvider } from '@/lib/AppContext';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import EnrollModal from '@/components/EnrollModal';
 import Toast from '@/components/Toast';
-import Link from 'next/link';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Tech Bloom Limited | Digital Skills Training',
   description: 'Equipping Nigerians with in-demand digital skills.',
 }
@@ -24,37 +25,9 @@ export default function RootLayout({
         <AppProvider>
           <Navbar />
           <main>{children}</main>
-
-          <footer>
-            <div className="footer-inner">
-              <div className="footer-grid">
-                <div className="footer-brand">
-                  <div className="logo">Tech<span>Bloom</span></div>
-                  <p>Equipping Nigerians with in-demand digital skills and connecting graduates with top employers.</p>
-                </div>
-                <div>
-                  <h4>Quick Links</h4>
-                  <ul className="footer-links">
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="/courses">Courses</Link></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>Contact</h4>
-                  <ul className="footer-links">
-                    <li>techbloomltd@gmail.com</li>
-                    <li>Port Harcourt, Nigeria</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="footer-bottom">
-                <p>© 2025 Tech Bloom Limited. All rights reserved.</p>
-                <p>Port Harcourt, Nigeria</p>
-              </div>
-            </div>
-          </footer>
+          <Footer />
           <EnrollModal />
-          {/* Note: Create Toast.tsx similar to EnrollModal using toast context */}
+          <Toast />
         </AppProvider>
       </body>
     </html>
