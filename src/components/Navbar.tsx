@@ -1,59 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 import { useApp } from '@/lib/AppContext';
-
-const links = [
-  { href: '/', label: 'Home', id: 'home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/courses', label: 'Courses' },
-  { href: '/placement', label: 'Job Placement' },
-  { href: '/contact', label: 'Contact' },
-];
+import { useState } from 'react';
 
 export default function Navbar() {
-  const pathname = usePathname();
   const { openEnroll } = useApp();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav>
       <div className="nav-inner">
-        <Link href="/" className="logo">
-          Tech<span>Bloom</span>
-        </Link>
-
+        <Link href="/" className="logo">Tech<span>Bloom</span></Link>
         <ul className="nav-links">
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link href={l.href} className={pathname === l.href ? 'active' : ''}>
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <a className="nav-cta" onClick={openEnroll} style={{ cursor: 'pointer' }}>
-              Enroll Now
-            </a>
-          </li>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/courses">Courses</Link></li>
+          <li><Link href="/placement">Job Placement</Link></li>
+          <li><Link href="/contact">Contact</Link></li>
+          <li><button onClick={openEnroll} className="nav-cta" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Enroll Now</button></li>
         </ul>
-
-        <button className="hamburger" onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle menu">
-          <span /><span /><span />
-        </button>
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span></span><span></span><span></span>
+        </div>
       </div>
-
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
-        {links.map((l) => (
-          <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
-            {l.label}
-          </Link>
-        ))}
-        <a onClick={() => { openEnroll(); setMenuOpen(false); }} style={{ cursor: 'pointer' }}>
-          Enroll Now
-        </a>
+        <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link href="/courses" onClick={() => setMenuOpen(false)}>Courses</Link>
+        <Link href="/placement" onClick={() => setMenuOpen(false)}>Job Placement</Link>
+        <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <a onClick={() => { openEnroll(); setMenuOpen(false); }}>Enroll Now</a>
       </div>
     </nav>
   );

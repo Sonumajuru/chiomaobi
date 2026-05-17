@@ -3,16 +3,13 @@
 import { useApp } from '@/lib/AppContext';
 
 interface EnrollButtonProps {
-  label?: string;
+  label: string;
   className?: string;
-  style?: React.CSSProperties;
 }
 
-export default function EnrollButton({ label = 'Enroll Now', className = 'btn btn-coral', style }: EnrollButtonProps) {
+export default function EnrollButton({ label, className }: EnrollButtonProps) {
   const { openEnroll } = useApp();
   return (
-    <button className={className} onClick={openEnroll} style={style}>
-      {label}
-    </button>
+    <button className={className} onClick={openEnroll}>{label}</button>
   );
 }

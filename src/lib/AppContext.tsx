@@ -1,27 +1,27 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 interface AppContextType {
   enrollOpen: boolean;
   openEnroll: () => void;
   closeEnroll: () => void;
-  toast: string;
+  toast: { show: boolean; msg: string };
   showToast: (msg: string) => void;
 }
 
-const AppContext = createContext<AppContextType | null>(null);
+const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export function AppProvider({ children }: { children: ReactNode }) {
+export function AppProvider({ children }: { children: React.ReactNode }) {
   const [enrollOpen, setEnrollOpen] = useState(false);
-  const [toast, setToast] = useState('');
+  const [toast, setToast] = useState({ show: false, msg: '' });
 
   const openEnroll = () => setEnrollOpen(true);
   const closeEnroll = () => setEnrollOpen(false);
 
   const showToast = (msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(''), 4000);
+    setToast({ show: true, msg });
+    setTimeout(() => setToast({ show: false, msg: '' }), 4000);
   };
 
   return (
@@ -32,7 +32,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 }
 
 export function useApp() {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useApp must be used within AppProvider');
-  return ctx;
+  const context = useContext(AppContext);
+  if (!context) throw new Error('useApp must be used within AppProvider');
+  return context;
 }

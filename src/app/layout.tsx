@@ -1,6 +1,9 @@
 import { AppProvider } from '@/lib/AppContext';
-import Link from 'next/link';
 import './globals.css';
+import Navbar from '@/components/Navbar';
+import EnrollModal from '@/components/EnrollModal';
+import Toast from '@/components/Toast';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Tech Bloom Limited | Digital Skills Training',
@@ -19,19 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <AppProvider>
-          <nav>
-            <div className="nav-inner">
-              <Link href="/" className="logo">Tech<span>Bloom</span></Link>
-              <ul className="nav-links">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/courses">Courses</Link></li>
-                <li><Link href="/placement">Job Placement</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
-                <li><Link href="/enroll" className="nav-cta">Enroll Now</Link></li>
-              </ul>
-            </div>
-          </nav>
-          
+          <Navbar />
           <main>{children}</main>
 
           <footer>
@@ -62,6 +53,8 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
+          <EnrollModal />
+          {/* Note: Create Toast.tsx similar to EnrollModal using toast context */}
         </AppProvider>
       </body>
     </html>
