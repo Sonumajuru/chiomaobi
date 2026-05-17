@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { AppProvider } from '@/lib/AppContext';
 import './globals.css';
+import { AppProvider } from '@/lib/AppContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import EnrollModal from '@/components/EnrollModal';

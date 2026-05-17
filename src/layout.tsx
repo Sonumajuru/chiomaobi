@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Providers from '@/components/Providers';
+import { AppProvider } from '@/lib/AppContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import EnrollModal from '@/components/EnrollModal';
@@ -16,13 +16,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <AppProvider>
           <Navbar />
           <main>{children}</main>
           <Footer />
           <EnrollModal />
           <Toast />
-        </Providers>
+        </AppProvider>
       </body>
     </html>
   );
