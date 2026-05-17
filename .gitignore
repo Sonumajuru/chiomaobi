@@ -1,0 +1,36 @@
+# ===============================
+# Next.js & Node.js Git Ignore
+# ===============================
+
+# Dependencies
+/node_modules/
+
+# Build output
+.next
+
+# Next.js build output inside 
+src/.next/
+
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Local environment files
+src/.env
+.env
+.env.local
+
+# OS-specific files
+.DS_Store
+
+
+# IDEs and editors
+.vscode/
+
+# Optional cache folders
+.next/cache/
+.cache/
+/tsconfig.tsbuildinfo
+/next-env.d.ts

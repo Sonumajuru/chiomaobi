@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tech Bloom Limited | Digital Skills Training & Job Placement</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --navy:#0D1B2A;
+    --teal:#0A9396;
+    --mint:#94D2BD;
+    --coral:#EE9B00;
+    --cream:#E9D8A6;
+    --white:#FFFFFF;
+    --light:#F4F9F9;
+    --gray:#64748B;
+    --dark:#1E2D3D;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;}
+
+  /* ── PAGE SYSTEM ─────────────────────────── */
+  .page{display:none;animation:fadeIn .4s ease;}
+  .page.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── NAV ─────────────────────────────────── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,27,42,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--teal);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .logo{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:var(--white);cursor:pointer;letter-spacing:-.5px;display:flex;align-items:center;gap:.5rem;}
+  .logo span{color:var(--teal);}
+  .nav-links{display:flex;gap:.25rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.9rem;font-weight:500;padding:.5rem .9rem;border-radius:6px;transition:all .25s;cursor:pointer;}
+  .nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(10,147,150,.25);}
+  .nav-cta{background:var(--teal)!important;color:var(--white)!important;border-radius:8px!important;padding:.5rem 1.2rem!important;}
+  .nav-cta:hover{background:#088b8e!important;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:.3s;}
+  .mobile-menu{display:none;background:var(--navy);padding:1rem 2rem 1.5rem;border-top:1px solid rgba(255,255,255,.1);}
+  .mobile-menu.open{display:block;}
+  .mobile-menu a{display:block;color:rgba(255,255,255,.85);padding:.75rem 0;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;text-decoration:none;}
+
+  /* ── HERO ────────────────────────────────── */
+  .hero{min-height:100vh;background:var(--navy);display:flex;align-items:center;padding-top:70px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(10,147,150,.18) 0%,transparent 70%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(10,147,150,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,147,150,.06) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(10,147,150,.2);border:1px solid rgba(10,147,150,.4);color:var(--mint);padding:.4rem 1rem;border-radius:100px;font-size:.82rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1.5rem;}
+  .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:1.25rem;}
+  .hero h1 em{color:var(--teal);font-style:normal;}
+  .hero p{font-size:1.1rem;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:2rem;max-width:500px;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:10px;font-weight:600;font-size:.95rem;cursor:pointer;transition:all .25s;text-decoration:none;border:none;}
+  .btn-primary{background:var(--teal);color:var(--white);}
+  .btn-primary:hover{background:#088b8e;transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,147,150,.4);}
+  .btn-outline{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.3);}
+  .btn-outline:hover{border-color:var(--teal);color:var(--teal);}
+  .btn-coral{background:var(--coral);color:var(--white);}
+  .btn-coral:hover{background:#d68a00;transform:translateY(-2px);box-shadow:0 8px 24px rgba(238,155,0,.4);}
+  .hero-visual{position:relative;}
+  .hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:2rem;backdrop-filter:blur(10px);}
+  .hero-stat{display:flex;flex-direction:column;gap:1rem;}
+  .stat-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(10,147,150,.12);border-radius:12px;border:1px solid rgba(10,147,150,.2);}
+  .stat-icon{width:44px;height:44px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+  .stat-info strong{display:block;font-family:'Syne',sans-serif;font-size:1.5rem;color:var(--white);}
+  .stat-info span{font-size:.8rem;color:rgba(255,255,255,.6);}
+
+  /* ── SECTIONS ────────────────────────────── */
+  section{padding:5rem 2rem;}
+  .section-inner{max-width:1200px;margin:0 auto;}
+  .section-label{font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:1rem;}
+  .section-title.light{color:var(--white);}
+  .section-sub{font-size:1.05rem;color:var(--gray);max-width:580px;line-height:1.75;}
+  .section-sub.light{color:rgba(255,255,255,.72);}
+  .text-center{text-align:center;}
+  .text-center .section-sub{margin:0 auto;}
+
+  /* ── COURSES GRID ────────────────────────── */
+  .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:3rem;}
+  .course-card{background:var(--card);border:1px solid #E2E8F0;border-radius:16px;overflow:hidden;transition:all .3s;cursor:pointer;text-decoration:none;color:inherit;}
+  .course-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.1);border-color:var(--teal);}
+  .course-top{height:140px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden;}
+  .course-top::after{content:'';position:absolute;inset:0;background:inherit;opacity:.15;}
+  .course-body{padding:1.4rem;}
+  .course-tag{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;}
+  .course-body h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;}
+  .course-body p{font-size:.88rem;color:var(--gray);line-height:1.6;}
+  .course-footer{padding:.9rem 1.4rem;border-top:1px solid #F1F5F9;display:flex;align-items:center;justify-content:space-between;}
+  .course-level{font-size:.78rem;color:var(--gray);}
+  .course-arrow{color:var(--teal);font-size:1.1rem;}
+
+  /* ── WHY CARDS ───────────────────────────── */
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;margin-top:3rem;}
+  .why-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.75rem;transition:.3s;}
+  .why-card:hover{background:rgba(10,147,150,.15);border-color:var(--teal);}
+  .why-icon{font-size:2rem;margin-bottom:1rem;}
+  .why-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:.6rem;}
+  .why-card p{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.65;}
+
+  /* ── TEAM ─────────────────────────────────── */
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2rem;margin-top:3rem;}
+  .team-card{text-align:center;background:var(--card);border:1px solid #E2E8F0;border-radius:20px;padding:2rem 1.5rem;transition:.3s;}
+  .team-card:hover{box-shadow:0 16px 40px rgba(0,0,0,.1);transform:translateY(-4px);}
+  .team-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;border:3px solid var(--mint);}
+  .team-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+  .team-card .role{font-size:.85rem;color:var(--teal);font-weight:600;margin-bottom:.75rem;}
+  .team-card p{font-size:.85rem;color:var(--gray);line-height:1.6;}
+
+  /* ── TESTIMONIALS ────────────────────────── */
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
+  .testi-card{background:var(--navy);border-radius:16px;padding:1.75rem;border:1px solid rgba(10,147,150,.2);position:relative;}
+  .testi-card::before{content:'"';position:absolute;top:1rem;right:1.5rem;font-size:4rem;color:rgba(10,147,150,.2);font-family:'Syne',sans-serif;line-height:1;}
+  .testi-stars{color:var(--coral);margin-bottom:1rem;font-size:1rem;}
+  .testi-card p{font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:1.25rem;}
+  .testi-author{display:flex;align-items:center;gap:.75rem;}
+  .testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--white);font-size:.9rem;}
+  .testi-name{font-weight:600;color:var(--white);font-size:.9rem;}
+  .testi-role{font-size:.78rem;color:rgba(255,255,255,.5);}
+
+  /* ── CONTACT ─────────────────────────────── */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+  .contact-info h3{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:1rem;}
+  .contact-info p{font-size:.95rem;color:var(--gray);line-height:1.75;margin-bottom:2rem;}
+  .contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--light);border-radius:12px;margin-bottom:.75rem;text-decoration:none;color:inherit;transition:.25s;}
+  .contact-item:hover{background:rgba(10,147,150,.1);}
+  .contact-item-icon{width:42px;height:42px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+  .contact-item-text strong{display:block;font-size:.85rem;color:var(--navy);}
+  .contact-item-text span{font-size:.82rem;color:var(--gray);}
+  .form-group{margin-bottom:1.25rem;}
+  .form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;}
+  .form-group input,.form-group textarea,.form-group select{width:100%;padding:.85rem 1rem;border:2px solid #E2E8F0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--dark);outline:none;transition:.25s;background:var(--white);}
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(10,147,150,.12);}
+  .form-group textarea{resize:vertical;min-height:120px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+  /* ── CTA BANNER ──────────────────────────── */
+  .cta-banner{background:linear-gradient(135deg,var(--teal) 0%,var(--navy) 100%);padding:4rem 2rem;text-align:center;}
+  .cta-banner h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:var(--white);margin-bottom:1rem;}
+  .cta-banner p{color:rgba(255,255,255,.8);font-size:1.05rem;margin-bottom:2rem;max-width:540px;margin-left:auto;margin-right:auto;}
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer{background:var(--navy);padding:4rem 2rem 2rem;border-top:2px solid var(--teal);}
+  .footer-inner{max-width:1200px;margin:0 auto;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+  .footer-brand p{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7;margin:1rem 0 1.5rem;}
+  .footer-socials{display:flex;gap:.75rem;}
+  .social-btn{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;transition:.25s;}
+  .social-btn:hover{transform:translateY(-3px);}
+  .social-fb{background:#1877F2;color:#fff;}
+  .social-li{background:#0A66C2;color:#fff;}
+  .social-em{background:var(--teal);color:#fff;}
+  footer h4{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:1.25rem;}
+  .footer-links{list-style:none;}
+  .footer-links li{margin-bottom:.6rem;}
+  .footer-links a{font-size:.88rem;color:rgba(255,255,255,.6);text-decoration:none;cursor:pointer;transition:.2s;}
+  .footer-links a:hover{color:var(--teal);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .footer-bottom p{font-size:.82rem;color:rgba(255,255,255,.45);}
+
+  /* ── ABOUT PAGE ──────────────────────────── */
+  .page-hero{padding:8rem 2rem 4rem;background:var(--navy);text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(10,147,150,.2) 0%,transparent 70%);}
+  .page-hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+  .page-hero h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--white);margin-bottom:1rem;}
+  .page-hero p{font-size:1.1rem;color:rgba(255,255,255,.72);line-height:1.75;}
+  .breadcrumb{display:flex;align-items:center;gap:.5rem;justify-content:center;margin-bottom:1.5rem;}
+  .breadcrumb span{font-size:.85rem;color:rgba(255,255,255,.5);}
+  .breadcrumb span.active{color:var(--mint);}
+  .breadcrumb .sep{color:rgba(255,255,255,.3);}
+
+  .values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;}
+  .value-card{text-align:center;padding:2rem 1.5rem;background:var(--light);border-radius:16px;border:1px solid #E2E8F0;transition:.3s;}
+  .value-card:hover{border-color:var(--teal);box-shadow:0 8px 24px rgba(10,147,150,.1);}
+  .value-icon{font-size:2.5rem;margin-bottom:1rem;}
+  .value-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;}
+  .value-card p{font-size:.85rem;color:var(--gray);line-height:1.6;}
+
+  .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .mission-img{background:linear-gradient(135deg,var(--teal),var(--navy));border-radius:20px;height:380px;display:flex;align-items:center;justify-content:center;font-size:6rem;}
+  .mission-text .section-label{margin-bottom:.75rem;}
+  .mission-text h2{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3.5vw,2.3rem);font-weight:800;color:var(--navy);margin-bottom:1.25rem;line-height:1.2;}
+  .mission-text p{font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:1rem;}
+  .check-list{list-style:none;margin-top:1.5rem;}
+  .check-list li{font-size:.92rem;color:var(--dark);padding:.4rem 0;display:flex;align-items:center;gap:.75rem;}
+  .check-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;}
+
+  /* ── COURSES PAGE ────────────────────────── */
+  .filter-bar{display:flex;gap:.75rem;flex-wrap:wrap;margin:2rem 0;}
+  .filter-btn{padding:.5rem 1.2rem;border-radius:100px;border:2px solid #E2E8F0;background:transparent;font-size:.85rem;font-weight:600;cursor:pointer;transition:.25s;color:var(--gray);}
+  .filter-btn:hover,.filter-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(10,147,150,.07);}
+
+  .course-detail{background:var(--light);border-radius:20px;padding:2.5rem;margin-top:2rem;display:none;}
+  .course-detail.open{display:block;animation:fadeIn .3s ease;}
+  .syllabus{list-style:none;margin-top:1rem;}
+  .syllabus li{padding:.6rem 0;border-bottom:1px solid #E2E8F0;font-size:.9rem;color:var(--dark);display:flex;align-items:center;gap:.75rem;}
+  .syllabus li::before{content:'📌';font-size:.8rem;}
+
+  /* ── JOB PLACEMENT ───────────────────────── */
+  .placement-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;}
+  .placement-card{background:var(--card);border:1px solid #E2E8F0;border-radius:16px;padding:1.75rem;transition:.3s;}
+  .placement-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);border-color:var(--teal);}
+  .placement-icon{font-size:2.2rem;margin-bottom:1rem;}
+  .placement-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.6rem;}
+  .placement-card p{font-size:.88rem;color:var(--gray);line-height:1.65;}
+
+  /* ── STATS BAR ───────────────────────────── */
+  .stats-bar{background:var(--teal);padding:3rem 2rem;}
+  .stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);text-align:center;gap:2rem;}
+  .stats-item strong{display:block;font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--white);}
+  .stats-item span{font-size:.85rem;color:rgba(255,255,255,.8);}
+
+  /* ── MODAL ────────────────────────────────── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--white);border-radius:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative;animation:fadeIn .3s ease;}
+  .modal h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;}
+  .modal p{font-size:.9rem;color:var(--gray);margin-bottom:1.5rem;}
+  .modal-close{position:absolute;top:1.25rem;right:1.25rem;width:32px;height:32px;border-radius:50%;background:var(--light);border:none;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;}
+  .modal-close:hover{background:#E2E8F0;}
+
+  /* ── TOAST ────────────────────────────────── */
+  .toast{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:var(--white);padding:1rem 1.5rem;border-radius:12px;border-left:4px solid var(--teal);font-size:.9rem;z-index:3000;transform:translateY(100px);opacity:0;transition:.4s;max-width:320px;}
+  .toast.show{transform:translateY(0);opacity:1;}
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media(max-width:900px){
+    .hero-content{grid-template-columns:1fr;gap:2rem;}
+    .hero-visual{display:none;}
+    .contact-grid,.mission-grid,.footer-grid{grid-template-columns:1fr;}
+    .stats-inner{grid-template-columns:repeat(2,1fr);}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    .stats-inner{grid-template-columns:1fr 1fr;}
+    section{padding:3.5rem 1.25rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="showPage('home')">Tech<span>Bloom</span></div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+      <li><a onclick="showPage('about')" id="nav-about">About Us</a></li>
+      <li><a onclick="showPage('courses')" id="nav-courses">Courses</a></li>
+      <li><a onclick="showPage('placement')" id="nav-placement">Job Placement</a></li>
+      <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+      <li><a onclick="openEnroll()" class="nav-cta">Enroll Now</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a onclick="showPage('home');toggleMenu()">Home</a>
+    <a onclick="showPage('about');toggleMenu()">About Us</a>
+    <a onclick="showPage('courses');toggleMenu()">Courses</a>
+    <a onclick="showPage('placement');toggleMenu()">Job Placement</a>
+    <a onclick="showPage('contact');toggleMenu()">Contact</a>
+    <a onclick="openEnroll();toggleMenu()">Enroll Now</a>
+  </div>
+</nav>
+
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div>
+        <div class="hero-badge">🌱 Port Harcourt, Nigeria</div>
+        <h1>Transform Your Future With <em>Digital Skills</em></h1>
+        <p>Tech Bloom Limited equips you with in-demand tech skills and connects you with employers. From AI tools to project management — we train, certify, and place you.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="showPage('courses')">🎓 Explore Courses</button>
+          <button class="btn btn-outline" onclick="showPage('placement')">💼 Job Placement</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-stat">
+            <div class="stat-item">
+              <div class="stat-icon">👨‍💻</div>
+              <div class="stat-info"><strong>500+</strong><span>Students Trained</span></div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">💼</div>
+              <div class="stat-info"><strong>10+</strong><span>Employer Partners</span></div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-info"><strong>10</strong><span>Expert-Led Courses</span></div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-info"><strong>85%</strong><span>Job Placement Rate</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stats-item"><strong>500+</strong><span>Students Trained</span></div>
+      <div class="stats-item"><strong>10</strong><span>Skill Courses</span></div>
+      <div class="stats-item"><strong>85%</strong><span>Job Placement Rate</span></div>
+      <div class="stats-item"><strong>100%</strong><span>Beginner Friendly</span></div>
+    </div>
+  </div>
+
+  <!-- Featured Courses -->
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">What We Teach</p>
+        <h2 class="section-title">Our 10 Flagship Courses</h2>
+        <p class="section-sub">Beginner-friendly, hands-on training in the most in-demand digital tools trusted by companies worldwide.</p>
+      </div>
+      <div class="courses-grid" id="home-courses"></div>
+      <div style="text-align:center;margin-top:2.5rem;">
+        <button class="btn btn-primary" onclick="showPage('courses')">View All Courses →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section style="background:var(--navy);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label" style="color:var(--mint)">Why Us</p>
+        <h2 class="section-title light">Why Choose Tech Bloom?</h2>
+        <p class="section-sub light">We don't just teach — we transform careers with practical skills and real job connections.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon">🎯</div><h3>Beginner Friendly</h3><p>Zero prior experience required. We start from scratch and build your confidence step by step.</p></div>
+        <div class="why-card"><div class="why-icon">🛠️</div><h3>Hands-On Projects</h3><p>Every course includes real mini-projects you build yourself — not just theory and slides.</p></div>
+        <div class="why-card"><div class="why-icon">💼</div><h3>Job Placement Support</h3><p>Our placement team actively connects graduates with hiring employers across Nigeria.</p></div>
+        <div class="why-card"><div class="why-icon">📜</div><h3>Certificate of Completion</h3><p>Earn a recognized Tech Bloom certificate that signals your skills to employers.</p></div>
+        <div class="why-card"><div class="why-icon">👩‍🏫</div><h3>Expert Coaches</h3><p>Learn from practitioners with real industry experience — not just academics.</p></div>
+        <div class="why-card"><div class="why-icon">🤝</div><h3>Lifetime Community</h3><p>Join a network of tech professionals and alumni who support each other long after graduation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section style="background:var(--light);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">Student Stories</p>
+        <h2 class="section-title">What Our Students Say</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"Tech Bloom changed my life. Within 3 months of graduating, I landed a remote job managing workflows with Notion and ClickUp. The training was practical and the coaches were amazing!"</p><div class="testi-author"><div class="testi-avatar">AC</div><div><div class="testi-name">Amara C.</div><div class="testi-role">Operations Coordinator, Lagos</div></div></div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"I had zero tech skills before Tech Bloom. Now I use Canva Pro and Zapier daily for my business. The beginner-friendly approach makes all the difference. Highly recommend!"</p><div class="testi-author"><div class="testi-avatar">TN</div><div><div class="testi-name">Tunde N.</div><div class="testi-role">Digital Marketer, Port Harcourt</div></div></div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p>"The ChatGPT and AI tools training was eye-opening. I now use AI every day to write better, work faster, and stand out from my colleagues. Tech Bloom is ahead of the curve!"</p><div class="testi-author"><div class="testi-avatar">FO</div><div><div class="testi-name">Funmi O.</div><div class="testi-role">Content Creator, Abuja</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <div class="section-inner" style="text-align:center;">
+      <h2>Ready to Bloom? 🌱</h2>
+      <p>Join hundreds of students who have transformed their careers with Tech Bloom Limited. Enrollment is now open!</p>
+      <button class="btn btn-coral" onclick="openEnroll()">Enroll Today — It's Free to Start</button>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════ ABOUT PAGE ══════════════ -->
+<div class="page" id="page-about">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="active">About Us</span></div>
+      <h1>About Tech Bloom Limited</h1>
+      <p>We exist to bridge the digital skills gap in Nigeria — one student at a time.</p>
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="mission-grid">
+        <div class="mission-img">🌱</div>
+        <div class="mission-text">
+          <p class="section-label">Our Story</p>
+          <h2>Empowering Nigerians With Skills That Pay</h2>
+          <p>Tech Bloom Limited was founded in Port Harcourt, Rivers State, with one clear purpose: to make high-quality digital skills training accessible and affordable to every Nigerian — regardless of their background.</p>
+          <p>We recognized that the digital economy was growing rapidly but most Nigerians lacked the practical tools training needed to participate. That gap is what we're closing, one graduate at a time.</p>
+          <ul class="check-list">
+            <li>Practical, hands-on training — not just theory</li>
+            <li>Job placement support for all graduates</li>
+            <li>Beginner-friendly programs for all ages</li>
+            <li>Internationally recognized tools and certifications</li>
+            <li>A growing community of 500+ trained professionals</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / Vision / Values -->
+  <section style="background:var(--light);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">What Drives Us</p>
+        <h2 class="section-title">Mission, Vision & Values</h2>
+      </div>
+      <div class="values-grid" style="margin-top:2.5rem;">
+        <div class="value-card"><div class="value-icon">🎯</div><h3>Our Mission</h3><p>To equip Nigerians with in-demand digital skills that open doors to employment, entrepreneurship, and global opportunities.</p></div>
+        <div class="value-card"><div class="value-icon">🔭</div><h3>Our Vision</h3><p>To become West Africa's leading digital skills training and job placement institution — where potential meets opportunity.</p></div>
+        <div class="value-card"><div class="value-icon">💡</div><h3>Innovation</h3><p>We continuously update our curriculum to reflect the latest tools and technologies employers actually use.</p></div>
+        <div class="value-card"><div class="value-icon">🤝</div><h3>Integrity</h3><p>We promise honest guidance, quality training, and genuine support — no empty guarantees.</p></div>
+        <div class="value-card"><div class="value-icon">🌍</div><h3>Inclusion</h3><p>Our doors are open to everyone regardless of age, gender, background, or prior education level.</p></div>
+        <div class="value-card"><div class="value-icon">🏆</div><h3>Excellence</h3><p>We hold ourselves and our students to the highest standards of skill, professionalism, and impact.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">The People Behind It</p>
+        <h2 class="section-title">Meet Our Team</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">👩‍💼</div>
+          <h3>Chiomaruth Obi</h3>
+          <div class="role">Founder & Lead Coach</div>
+          <p>Visionary leader and certified digital skills trainer passionate about empowering Nigerians with world-class tech competencies.</p>
+          <div style="margin-top:1rem;display:flex;gap:.5rem;justify-content:center;">
+            <a href="https://www.linkedin.com/in/chiomaruth-obi" target="_blank" class="social-btn social-li" title="LinkedIn">in</a>
+            <a href="mailto:techbloomltd@gmail.com" class="social-btn social-em" title="Email">✉</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👨‍💻</div>
+          <h3>Tech Trainer</h3>
+          <div class="role">AI & Automation Coach</div>
+          <p>Specialist in AI tools, workflow automation with Zapier & Make, and building efficient no-code systems for businesses.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👩‍🎨</div>
+          <h3>Design Trainer</h3>
+          <div class="role">Canva & Creative Tools Coach</div>
+          <p>Expert in visual communication, Canva Pro, and helping students build stunning personal and professional brands.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👨‍💼</div>
+          <h3>Placement Officer</h3>
+          <div class="role">Career & Job Placement</div>
+          <p>Dedicated to connecting graduates with employers and helping students build CVs, portfolios, and interview readiness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="section-inner" style="text-align:center;">
+      <h2>Join the Tech Bloom Family 🌱</h2>
+      <p>Be part of the movement transforming careers across Nigeria. Your journey starts here.</p>
+      <button class="btn btn-coral" onclick="openEnroll()">Start Your Journey Today</button>
+    </div>
+  </div>
+
+</div><!-- /about -->
+
+
+<!-- ══════════════ COURSES PAGE ══════════════ -->
+<div class="page" id="page-courses">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="active">Courses</span></div>
+      <h1>Our 10 Flagship Courses</h1>
+      <p>Beginner-friendly, project-based training in the most in-demand digital tools in the job market today.</p>
+    </div>
+  </div>
+
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterCourses('all',this)">All Courses</button>
+        <button class="filter-btn" onclick="filterCourses('ai',this)">AI Tools</button>
+        <button class="filter-btn" onclick="filterCourses('productivity',this)">Productivity</button>
+        <button class="filter-btn" onclick="filterCourses('automation',this)">Automation</button>
+        <button class="filter-btn" onclick="filterCourses('design',this)">Design</button>
+      </div>
+      <div class="courses-grid" id="all-courses"></div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="section-inner" style="text-align:center;">
+      <h2>Ready to Pick Your Course? 🎓</h2>
+      <p>All courses are beginner-friendly and include a certificate of completion plus job placement support.</p>
+      <button class="btn btn-coral" onclick="openEnroll()">Enroll Now — Spots Limited!</button>
+    </div>
+  </div>
+
+</div><!-- /courses -->
+
+
+<!-- ══════════════ JOB PLACEMENT PAGE ══════════════ -->
+<div class="page" id="page-placement">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="active">Job Placement</span></div>
+      <h1>Job Placement Programme</h1>
+      <p>We don't just train you — we connect you with employers who are hiring right now.</p>
+    </div>
+  </div>
+
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">Our Promise</p>
+        <h2 class="section-title">How We Get You Hired</h2>
+        <p class="section-sub">From CV writing to interview coaching to direct employer introductions — we walk with you every step of the job search journey.</p>
+      </div>
+      <div class="placement-grid">
+        <div class="placement-card"><div class="placement-icon">📄</div><h3>CV & Portfolio Building</h3><p>Our coaches help you craft a standout CV and digital portfolio that showcases your Tech Bloom projects to employers.</p></div>
+        <div class="placement-card"><div class="placement-icon">🎤</div><h3>Interview Preparation</h3><p>Mock interviews, common question drills, and professional communication coaching to help you walk into any interview with confidence.</p></div>
+        <div class="placement-card"><div class="placement-icon">🔗</div><h3>Employer Connections</h3><p>We have active relationships with companies in tech, media, logistics, and more who regularly hire from our graduate pool.</p></div>
+        <div class="placement-card"><div class="placement-icon">🌐</div><h3>LinkedIn Profile Optimization</h3><p>We help you build a powerful LinkedIn presence that attracts recruiters and highlights your new digital skills.</p></div>
+        <div class="placement-card"><div class="placement-icon">💡</div><h3>Freelance Launch Support</h3><p>Not looking for a 9-5? We help you set up on Upwork, Fiverr, or launch your own digital services business.</p></div>
+        <div class="placement-card"><div class="placement-icon">📊</div><h3>Career Tracking</h3><p>We follow up with graduates for 6 months post-training to ensure you've successfully transitioned into your new role.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stats-item"><strong>85%</strong><span>Job Placement Rate</span></div>
+      <div class="stats-item"><strong>10+</strong><span>Employer Partners</span></div>
+      <div class="stats-item"><strong>500+</strong><span>Graduates</span></div>
+      <div class="stats-item"><strong>6 Months</strong><span>Post-Training Support</span></div>
+    </div>
+  </div>
+
+  <section style="background:var(--light);">
+    <div class="section-inner">
+      <div class="text-center">
+        <p class="section-label">Career Paths</p>
+        <h2 class="section-title">Jobs Our Graduates Get</h2>
+        <p class="section-sub">Our graduates go on to work in a wide range of roles across industries.</p>
+      </div>
+      <div class="placement-grid" style="margin-top:2.5rem;">
+        <div class="placement-card"><div class="placement-icon">🤖</div><h3>AI Prompt Engineer</h3><p>Use ChatGPT and Gemini to automate content, support, and business processes for companies.</p></div>
+        <div class="placement-card"><div class="placement-icon">🎨</div><h3>Graphic Designer</h3><p>Create visual content for brands using Canva Pro — social media posts, presentations, and marketing materials.</p></div>
+        <div class="placement-card"><div class="placement-icon">⚙️</div><h3>Automation Specialist</h3><p>Build Zapier and Make workflows that save businesses hours of manual work every week.</p></div>
+        <div class="placement-card"><div class="placement-icon">📋</div><h3>Project Manager</h3><p>Lead teams using ClickUp, Notion, and Airtable to deliver projects on time and within scope.</p></div>
+        <div class="placement-card"><div class="placement-icon">📹</div><h3>Video Content Creator</h3><p>Record and share professional tutorials, onboarding videos, and demos using Loom.</p></div>
+        <div class="placement-card"><div class="placement-icon">✍️</div><h3>Content Writer</h3><p>Produce polished, professional written content enhanced with Grammarly and AI writing tools.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="section-inner" style="text-align:center;">
+      <h2>Your Dream Job Is One Course Away 💼</h2>
+      <p>Enroll today and let our placement team help you land the role you deserve.</p>
+      <button class="btn btn-coral" onclick="openEnroll()">Get Job-Ready Now</button>
+    </div>
+  </div>
+
+</div><!-- /placement -->
+
+
+<!-- ══════════════ CONTACT PAGE ══════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span class="sep">/</span><span class="active">Contact</span></div>
+      <h1>Get In Touch</h1>
+      <p>Have questions? Ready to enroll? We'd love to hear from you. Reach out any time!</p>
+    </div>
+  </div>
+
+  <section style="background:var(--white);">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>We're Here to Help 👋</h3>
+          <p>Whether you have a question about our courses, want to know about enrollment, or are an employer looking to hire our graduates — our team is ready to assist.</p>
+          <a href="mailto:techbloomltd@gmail.com" class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-text"><strong>Email Us</strong><span>techbloomltd@gmail.com</span></div>
+          </a>
+          <a href="https://www.facebook.com/share/1Ec2zKxjS6/" target="_blank" class="contact-item">
+            <div class="contact-item-icon" style="background:#1877F2;">📘</div>
+            <div class="contact-item-text"><strong>Facebook</strong><span>Follow us on Facebook</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/chiomaruth-obi" target="_blank" class="contact-item">
+            <div class="contact-item-icon" style="background:#0A66C2;">💼</div>
+            <div class="contact-item-text"><strong>LinkedIn</strong><span>linkedin.com/in/chiomaruth-obi</span></div>
+          </a>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-item-icon" style="background:var(--coral);">📍</div>
+            <div class="contact-item-text"><strong>Location</strong><span>Port Harcourt, Rivers State, Nigeria</span></div>
+          </div>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-item-icon" style="background:var(--coral);">🕒</div>
+            <div class="contact-item-text"><strong>Office Hours</strong><span>Mon – Sat: 8:00 AM – 6:00 PM</span></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:1.5rem;">Send Us a Message</h3>
+          <form onsubmit="handleContact(event)">
+            <div class="form-row">
+              <div class="form-group"><label>First Name</label><input type="text" placeholder="e.g. Amara" required/></div>
+              <div class="form-group"><label>Last Name</label><input type="text" placeholder="e.g. Okafor" required/></div>
+            </div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" required/></div>
+            <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+234 800 000 0000"/></div>
+            <div class="form-group">
+              <label>I'm Interested In</label>
+              <select>
+                <option value="">Select an option...</option>
+                <option>Enrolling in a Course</option>
+                <option>Job Placement Programme</option>
+                <option>Corporate Training</option>
+                <option>Employer Partnership</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help you..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /contact -->
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" onclick="showPage('home')" style="font-size:1.4rem;margin-bottom:.5rem;">Tech<span>Bloom</span></div>
+        <p>Equipping Nigerians with in-demand digital skills and connecting graduates with top employers across the country.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/share/1Ec2zKxjS6/" target="_blank" class="social-btn social-fb" title="Facebook">f</a>
+          <a href="https://www.linkedin.com/in/chiomaruth-obi" target="_blank" class="social-btn social-li" title="LinkedIn">in</a>
+          <a href="mailto:techbloomltd@gmail.com" class="social-btn social-em" title="Email">✉</a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('about')">About Us</a></li>
+          <li><a onclick="showPage('courses')">All Courses</a></li>
+          <li><a onclick="showPage('placement')">Job Placement</a></li>
+          <li><a onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Courses</h4>
+        <ul class="footer-links">
+          <li><a onclick="showPage('courses')">ChatGPT + Prompting</a></li>
+          <li><a onclick="showPage('courses')">Gemini AI</a></li>
+          <li><a onclick="showPage('courses')">Canva Pro</a></li>
+          <li><a onclick="showPage('courses')">Notion</a></li>
+          <li><a onclick="showPage('courses')">ClickUp</a></li>
+          <li><a onclick="showPage('courses')">Zapier & Make</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:techbloomltd@gmail.com">techbloomltd@gmail.com</a></li>
+          <li><a href="https://www.facebook.com/share/1Ec2zKxjS6/" target="_blank">Facebook Page</a></li>
+          <li><a href="https://www.linkedin.com/in/chiomaruth-obi" target="_blank">LinkedIn Profile</a></li>
+          <li><a>Port Harcourt, Rivers State</a></li>
+          <li><a>Mon–Sat: 8AM – 6PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Tech Bloom Limited. All rights reserved. | Port Harcourt, Nigeria</p>
+      <p style="color:rgba(255,255,255,.35);">Empowering Africa's Digital Future 🌍</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ENROLL MODAL -->
+<div class="modal-overlay" id="enroll-modal" onclick="closeEnroll(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeEnroll()">✕</button>
+    <h2>🌱 Enroll at Tech Bloom</h2>
+    <p>Fill in your details and we'll get back to you within 24 hours with next steps.</p>
+    <form onsubmit="handleEnroll(event)">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Amara" required/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Okafor" required/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" required/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+234 800 000 0000" required/></div>
+      <div class="form-group">
+        <label>Course of Interest</label>
+        <select required>
+          <option value="">Choose a course...</option>
+          <option>ChatGPT + Prompting</option>
+          <option>Gemini AI</option>
+          <option>Grammarly</option>
+          <option>Loom</option>
+          <option>Notion</option>
+          <option>Zapier</option>
+          <option>Make</option>
+          <option>Airtable</option>
+          <option>ClickUp</option>
+          <option>Canva Pro</option>
+          <option>All Courses (Full Programme)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>How did you hear about us?</label>
+        <select>
+          <option value="">Select...</option>
+          <option>Facebook</option>
+          <option>LinkedIn</option>
+          <option>Friend / Referral</option>
+          <option>Google Search</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem;">Submit Enrollment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── COURSE DATA ─────────────────────────────────────────────────────────────
+  const courses = [
+    { id:1, icon:'🤖', title:'ChatGPT + Prompting', tag:'AI Tools', cat:'ai', color:'#0A9396', desc:'Master AI conversations. Learn prompt engineering to get better results for writing, research, coding, and more.', level:'Beginner', duration:'2 Weeks', syllabus:['Introduction to ChatGPT & OpenAI','Understanding how Large Language Models work','The Anatomy of a Good Prompt','Role-playing & Context Setting','Iterating and Refining Responses','Using ChatGPT for Writing & Research','ChatGPT for Business & Productivity','Mini Project: Build Your AI Toolkit'] },
+    { id:2, icon:'✨', title:'Gemini AI', tag:'AI Tools', cat:'ai', color:'#5C67F2', desc:'Harness Google\'s AI. Use Gemini inside Gmail, Docs, and Sheets to research, write, and automate daily tasks.', level:'Beginner', duration:'2 Weeks', syllabus:['What is Gemini AI?','Gemini vs ChatGPT: Which to Use When','Using Gemini in Gmail','Using Gemini in Google Docs','Gemini in Google Sheets (formulas)','Real-time Research with Gemini','Multimodal Input: Images & Text','Mini Project: AI Research Report'] },
+    { id:3, icon:'✍️', title:'Grammarly', tag:'Productivity', cat:'productivity', color:'#0EA5E9', desc:'Write with confidence. Master grammar, tone, clarity, and the AI writing features that make your words shine.', level:'Beginner', duration:'1 Week', syllabus:['Installing & Setting Up Grammarly','Grammar, Spelling & Punctuation','Tone Detection & Adjustment','Clarity & Conciseness Improvements','Using Grammarly in Gmail & Docs','GrammarlyGO AI Features','Plagiarism Checker (Premium)','Mini Project: Polish a Professional Email'] },
+    { id:4, icon:'🎬', title:'Loom', tag:'Productivity', cat:'productivity', color:'#F97316', desc:'Record & share video messages. Master async video communication for presentations, demos, and tutorials.', level:'Beginner', duration:'1 Week', syllabus:['What is Loom & Why It Matters','Installing Loom (Chrome & Desktop)','Screen, Camera & Combined Recording','Recording Best Practices','Editing & Trimming Your Videos','Sharing & Permissions','Watching Analytics & Engagement','Mini Project: Create a Tutorial Video'] },
+    { id:5, icon:'📓', title:'Notion', tag:'Productivity', cat:'productivity', color:'#8B5CF6', desc:'Build your digital workspace. Organize notes, tasks, wikis, and projects in one beautiful, powerful tool.', level:'Beginner', duration:'2 Weeks', syllabus:['Introduction to Notion','Pages, Blocks & the Editor','Building Databases (Table, Board, Calendar)','Templates & Gallery View','Filtering, Sorting & Grouping Data','Notion AI (Generate & Summarize)','Sharing & Collaboration','Mini Project: Personal Study Dashboard'] },
+    { id:6, icon:'⚡', title:'Zapier', tag:'Automation', cat:'automation', color:'#EF4444', desc:'Automate without code. Connect 7000+ apps to eliminate repetitive tasks and run workflows on autopilot.', level:'Beginner', duration:'2 Weeks', syllabus:['What is Automation & Why It Matters','Zapier Basics: Triggers & Actions','Building Your First Zap','Multi-Step Zaps','Filters & Conditional Logic','Zapier Paths & Delay','Common Automation Recipes','Mini Project: Form-to-Email Automation'] },
+    { id:7, icon:'🔄', title:'Make (Integromat)', tag:'Automation', cat:'automation', color:'#10B981', desc:'Visual workflow automation. Build powerful multi-step scenarios with data transformation and advanced logic.', level:'Intermediate', duration:'2 Weeks', syllabus:['Introduction to Make','Modules, Scenarios & Connections','Building Your First Scenario','Data Mapping & Transformation','Routers & Conditional Branching','Iterators & Aggregators','Scheduling & Error Handling','Mini Project: Automated Content Workflow'] },
+    { id:8, icon:'🗄️', title:'Airtable', tag:'Productivity', cat:'productivity', color:'#F59E0B', desc:'The spreadsheet reimagined. Build powerful databases, track anything, and create custom workflows — no code needed.', level:'Beginner', duration:'2 Weeks', syllabus:['Airtable vs Excel: Understanding the Difference','Bases, Tables & Fields','Field Types & Data Validation','Views: Grid, Kanban, Calendar, Gallery','Linking Tables & Relational Data','Airtable Forms for Data Collection','Automations Inside Airtable','Mini Project: Event Management Database'] },
+    { id:9, icon:'✅', title:'ClickUp', tag:'Productivity', cat:'productivity', color:'#3B82F6', desc:'The everything productivity app. Manage tasks, projects, teams, and goals in one fully customizable workspace.', level:'Beginner', duration:'2 Weeks', syllabus:['ClickUp Hierarchy: Workspace to Subtasks','Creating & Managing Tasks','Custom Statuses & Workflows','Views: List, Board, Calendar, Gantt','Time Tracking & Workload Management','ClickUp Docs','Automations & Goals','Mini Project: Course Progress Tracker'] },
+    { id:10, icon:'🎨', title:'Canva Pro', tag:'Design', cat:'design', color:'#EE9B00', desc:'Design like a pro. Create stunning visuals for social media, presentations, CVs, flyers, and your personal brand.', level:'Beginner', duration:'2 Weeks', syllabus:['Canva Interface & Navigation','Working with Templates','Typography & Brand Colors','Photo Editing & Background Removal','Canva Magic AI Tools','Brand Kit Setup','Magic Resize & Content Planner','Mini Project: Personal Brand Kit'] },
+  ];
+
+  // ── RENDER COURSES ──────────────────────────────────────────────────────────
+  function renderCourses(containerId, limit, filter='all'){
+    const container = document.getElementById(containerId);
+    if(!container) return;
+    let list = filter==='all' ? courses : courses.filter(c=>c.cat===filter);
+    if(limit) list = list.slice(0,limit);
+    container.innerHTML = list.map(c=>`
+      <div class="course-card" onclick="openCourseModal(${c.id})">
+        <div class="course-top" style="background:${c.color}20;">
+          <span style="position:relative;z-index:2;font-size:3rem;">${c.icon}</span>
+        </div>
+        <div class="course-body">
+          <div class="course-tag">${c.tag}</div>
+          <h3>${c.title}</h3>
+          <p>${c.desc}</p>
+        </div>
+        <div class="course-footer">
+          <span class="course-level">📅 ${c.duration} &nbsp;·&nbsp; 🎯 ${c.level}</span>
+          <span class="course-arrow">→</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openCourseModal(id){
+    const c = courses.find(x=>x.id===id);
+    document.getElementById('course-modal-content').innerHTML = `
+      <button class="modal-close" onclick="closeCourseModal()">✕</button>
+      <div style="font-size:3rem;margin-bottom:.75rem;">${c.icon}</div>
+      <p class="section-label">${c.tag}</p>
+      <h2 style="font-family:Syne,sans-serif;font-size:1.7rem;color:var(--navy);margin-bottom:.5rem;">${c.title}</h2>
+      <p style="color:var(--gray);margin-bottom:1.5rem;font-size:.95rem;">${c.desc}</p>
+      <div style="display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <span style="background:var(--light);padding:.4rem .9rem;border-radius:100px;font-size:.82rem;font-weight:600;color:var(--navy);">📅 ${c.duration}</span>
+        <span style="background:var(--light);padding:.4rem .9rem;border-radius:100px;font-size:.82rem;font-weight:600;color:var(--navy);">🎯 ${c.level}</span>
+        <span style="background:var(--light);padding:.4rem .9rem;border-radius:100px;font-size:.82rem;font-weight:600;color:var(--navy);">📜 Certificate Included</span>
+      </div>
+      <h4 style="font-family:Syne,sans-serif;font-size:1rem;color:var(--navy);margin-bottom:.75rem;">Course Syllabus</h4>
+      <ul class="syllabus">${c.syllabus.map(s=>`<li>${s}</li>`).join('')}</ul>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;" onclick="closeCourseModal();openEnroll()">Enroll in This Course →</button>
+    `;
+    document.getElementById('course-modal').classList.add('open');
+  }
+  function closeCourseModal(){
+    document.getElementById('course-modal').classList.remove('open');
+  }
+
+  // ── FILTER COURSES ──────────────────────────────────────────────────────────
+  function filterCourses(cat, btn){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCourses('all-courses', null, cat);
+  }
+
+  // ── PAGE NAVIGATION ─────────────────────────────────────────────────────────
+  function showPage(page){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+page).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a=>{
+      a.classList.remove('active');
+      if(a.id==='nav-'+page) a.classList.add('active');
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(page==='courses') renderCourses('all-courses');
+  }
+
+  // ── MOBILE MENU ─────────────────────────────────────────────────────────────
+  function toggleMenu(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+
+  // ── ENROLL MODAL ─────────────────────────────────────────────────────────────
+  function openEnroll(){
+    document.getElementById('enroll-modal').classList.add('open');
+  }
+  function closeEnroll(e){
+    if(!e || e.target===document.getElementById('enroll-modal')){
+      document.getElementById('enroll-modal').classList.remove('open');
+    }
+  }
+
+  // ── FORMS ────────────────────────────────────────────────────────────────────
+  function handleEnroll(e){
+    e.preventDefault();
+    closeEnroll();
+    showToast('🎉 Enrollment submitted! We\'ll contact you within 24 hours.');
+  }
+  function handleContact(e){
+    e.preventDefault();
+    showToast('✅ Message sent! Our team will reply shortly.');
+    e.target.reset();
+  }
+
+  // ── TOAST ────────────────────────────────────────────────────────────────────
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 4000);
+  }
+
+  // ── INIT ─────────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded',()=>{
+    renderCourses('home-courses', 6);
+  });
+</script>
+
+<!-- Course Detail Modal -->
+<div class="modal-overlay" id="course-modal" onclick="if(event.target===this)closeCourseModal()">
+  <div class="modal" id="course-modal-content"></div>
+</div>
+
+</body>
+</html>
