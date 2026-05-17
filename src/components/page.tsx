@@ -61,7 +61,6 @@ export default function ContactPage() {
                 <div className="contact-item-text"><strong>Location</strong><span>Port Harcourt, Nigeria</span></div>
               </div>
 
-              {/* Surprise Me Feature */}
               <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--light)', borderRadius: '16px', border: '1px dashed var(--teal)' }}>
                 <h4 style={{ marginBottom: '0.5rem', fontFamily: 'Syne, sans-serif' }}>Feeling Adventurous?</h4>
                 <p style={{ fontSize: '0.85rem', marginBottom: '1rem' }}>Not sure which path to take? Let the Tech Bloom destiny wheel decide for you!</p>
@@ -77,19 +76,10 @@ export default function ContactPage() {
               </h3>
               <form onSubmit={handleContact}>
                 <div className="form-row">
-                  <div className="form-group">
-                    <label>First Name</label>
-                    <input type="text" placeholder="e.g. Amara" required />
-                  </div>
-                  <div className="form-group">
-                    <label>Last Name</label>
-                    <input type="text" placeholder="e.g. Okafor" required />
-                  </div>
+                  <div className="form-group"><label>First Name</label><input type="text" placeholder="e.g. Amara" required /></div>
+                  <div className="form-group"><label>Last Name</label><input type="text" placeholder="e.g. Okafor" required /></div>
                 </div>
-                <div className="form-group">
-                  <label>Email Address</label>
-                  <input type="email" placeholder="your@email.com" required />
-                </div>
+                <div className="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" required /></div>
                 <div className="form-group">
                   <label>Subject</label>
                   <select required>
