@@ -2,13 +2,12 @@ import Link from 'next/link';
 import { courses } from '@/lib/courses';
 import CourseCard from '@/components/CourseCard';
 import EnrollButton from '@/components/EnrollButton';
-import { AppProvider } from '@/lib/AppContext';
 
 export default function HomePage() {
   const featuredCourses = courses.slice(0, 6);
 
   return (
-    <AppProvider>
+    <>
       {/* ── HERO ─────────────────────────────────── */}
       <section className="hero" style={{ minHeight: '100vh', background: 'var(--navy)', display: 'flex', alignItems: 'center', paddingTop: '70px', position: 'relative', overflow: 'hidden' }}>
         <div className="hero-grid" style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(10,147,150,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,147,150,.06) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
@@ -143,6 +142,6 @@ export default function HomePage() {
         <p>Join hundreds of students who have transformed their careers with Tech Bloom Limited. Enrollment is now open!</p>
         <EnrollButton label="Enroll Today — It's Free to Start" className="btn btn-coral" />
       </div>
-    </AppProvider>
+    </>
   );
 }

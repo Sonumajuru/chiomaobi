@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { courses } from '@/lib/courses';
 import CourseCard from '@/components/CourseCard';
 import EnrollButton from '@/components/EnrollButton';
-import { AppProvider } from '@/lib/AppContext';
 
 const filters = [
   { label: 'All Courses', value: 'all' },
@@ -20,7 +19,7 @@ export default function CoursesPage() {
   const filtered = active === 'all' ? courses : courses.filter((c) => c.cat === active);
 
   return (
-    <AppProvider>
+    <>
       <div className="page-hero">
         <div className="page-hero-content">
           <div className="breadcrumb">
@@ -59,6 +58,6 @@ export default function CoursesPage() {
         <p>All courses are beginner-friendly and include a certificate of completion plus job placement support.</p>
         <EnrollButton label="Enroll Now — Spots Limited!" className="btn btn-coral" />
       </div>
-    </AppProvider>
+    </>
   );
 }

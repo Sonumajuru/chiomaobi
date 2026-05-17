@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import EnrollButton from '@/components/EnrollButton';
-import { AppProvider } from '@/lib/AppContext';
 
 export const metadata = {
   title: 'Job Placement | Tech Bloom Limited',
@@ -8,7 +7,7 @@ export const metadata = {
 
 export default function PlacementPage() {
   return (
-    <AppProvider>
+    <>
       <div className="page-hero">
         <div className="page-hero-content">
           <div className="breadcrumb">
@@ -90,6 +89,6 @@ export default function PlacementPage() {
         <p>Enroll today and let our placement team help you land the role you deserve.</p>
         <EnrollButton label="Get Job-Ready Now" className="btn btn-coral" />
       </div>
-    </AppProvider>
+    </>
   );
 }
