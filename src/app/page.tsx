@@ -9,22 +9,22 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ─────────────────────────────────── */}
-      <section className="hero" style={{ minHeight: '100vh', background: 'var(--navy)', display: 'flex', alignItems: 'center', paddingTop: '70px', position: 'relative', overflow: 'hidden' }}>
-        <div className="hero-grid" style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(10,147,150,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,147,150,.06) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+      <section className="hero">
+        <div className="hero-grid" />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 70% 40%,rgba(10,147,150,.18) 0%,transparent 70%)' }} />
 
-        <div className="section-inner" style={{ padding: '4rem 2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+        <div className="section-inner" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', position: 'relative', zIndex: 2 }}>
           <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', background: 'rgba(10,147,150,.2)', border: '1px solid rgba(10,147,150,.4)', color: 'var(--mint)', padding: '.4rem 1rem', borderRadius: '100px', fontSize: '.82rem', fontWeight: 600, letterSpacing: '.5px', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+            <div className="hero-badge">
               🌱 Port Harcourt, Nigeria
             </div>
-            <h1 style={{ fontFamily: 'Syne,sans-serif', fontSize: 'clamp(2.4rem,5vw,3.6rem)', fontWeight: 800, color: 'var(--white)', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+            <h1>
               Transform Your Future With <em style={{ color: 'var(--teal)', fontStyle: 'normal' }}>Digital Skills</em>
             </h1>
-            <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,.72)', lineHeight: 1.75, marginBottom: '2rem', maxWidth: '500px' }}>
+            <p>
               Tech Bloom Limited equips you with in-demand tech skills and connects you with employers. From AI tools to project management — we train, certify, and place you.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <div className="hero-btns">
               <Link href="/courses" className="btn btn-primary">🎓 Explore Courses</Link>
               <Link href="/placement" className="btn btn-outline">💼 Job Placement</Link>
             </div>
