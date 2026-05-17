@@ -61,6 +61,7 @@ export default function ContactPage() {
                 <div className="contact-item-text"><strong>Location</strong><span>Port Harcourt, Nigeria</span></div>
               </div>
 
+              {/* Surprise Me Feature */}
               <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--light)', borderRadius: '16px', border: '1px dashed var(--teal)' }}>
                 <h4 style={{ marginBottom: '0.5rem', fontFamily: 'Syne, sans-serif' }}>Feeling Adventurous?</h4>
                 <p style={{ fontSize: '0.85rem', marginBottom: '1rem' }}>Not sure which path to take? Let the Tech Bloom destiny wheel decide for you!</p>
