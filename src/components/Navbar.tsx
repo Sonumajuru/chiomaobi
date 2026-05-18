@@ -14,9 +14,10 @@ export default function Navbar() {
         <Link href="/" className="logo">Tech<span>Bloom</span></Link>
         <ul className="nav-links">
           <li><Link href="/">Home</Link></li>
+          <li><Link href="/about">About Us</Link></li>
           <li><Link href="/courses">Courses</Link></li>
           <li><Link href="/placement">Job Placement</Link></li>
-          <li><Link href="/#contact">Contact</Link></li>
+          <li><Link href="/contact">Contact</Link></li>
           <li><button onClick={openEnroll} className="nav-cta" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Enroll Now</button></li>
         </ul>
         <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
@@ -25,9 +26,10 @@ export default function Navbar() {
       </div>
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link href="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
         <Link href="/courses" onClick={() => setMenuOpen(false)}>Courses</Link>
         <Link href="/placement" onClick={() => setMenuOpen(false)}>Job Placement</Link>
-        <Link href="/#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
         <a onClick={() => { openEnroll(); setMenuOpen(false); }}>Enroll Now</a>
       </div>
     </nav>

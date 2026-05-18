@@ -109,9 +109,11 @@ export default function AboutPage() {
       </section>
 
       <div className="cta-banner">
-        <h2>Join the Tech Bloom Family 🌱</h2>
-        <p>Be part of the movement transforming careers across Nigeria. Your journey starts here.</p>
-        <EnrollButton label="Start Your Journey Today" className="btn btn-coral" />
+        <div className="section-inner" style={{ textAlign: 'center' }}>
+          <h2>Join the Tech Bloom Family 🌱</h2>
+          <p>Be part of the movement transforming careers across Nigeria. Your journey starts here.</p>
+          <EnrollButton label="Start Your Journey Today" className="btn btn-coral" />
+        </div>
       </div>
     </>
   );

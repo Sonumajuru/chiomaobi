@@ -54,9 +54,11 @@ export default function CoursesPage() {
       </section>
 
       <div className="cta-banner">
-        <h2>Ready to Pick Your Course? 🎓</h2>
-        <p>All courses are beginner-friendly and include a certificate of completion plus job placement support.</p>
-        <EnrollButton label="Enroll Now — Spots Limited!" className="btn btn-coral" />
+        <div className="section-inner" style={{ textAlign: 'center' }}>
+          <h2>Ready to Pick Your Course? 🎓</h2>
+          <p>All courses are beginner-friendly and include a certificate of completion plus job placement support.</p>
+          <EnrollButton label="Enroll Now — Spots Limited!" className="btn btn-coral" />
+        </div>
       </div>
     </>
   );

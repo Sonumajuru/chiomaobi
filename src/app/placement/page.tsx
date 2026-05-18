@@ -85,9 +85,11 @@ export default function PlacementPage() {
       </section>
 
       <div className="cta-banner">
-        <h2>Your Dream Job Is One Course Away 💼</h2>
-        <p>Enroll today and let our placement team help you land the role you deserve.</p>
-        <EnrollButton label="Get Job-Ready Now" className="btn btn-coral" />
+        <div className="section-inner" style={{ textAlign: 'center' }}>
+          <h2>Your Dream Job Is One Course Away 💼</h2>
+          <p>Enroll today and let our placement team help you land the role you deserve.</p>
+          <EnrollButton label="Get Job-Ready Now" className="btn btn-coral" />
+        </div>
       </div>
     </>
   );
