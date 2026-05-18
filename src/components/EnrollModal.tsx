@@ -13,24 +13,25 @@ export default function EnrollModal() {
     e.preventDefault();
     const form = e.currentTarget;
 
-    const payload = new FormData();
-    payload.append('First Name', (form.elements.namedItem('firstName') as HTMLInputElement).value);
-    payload.append('Last Name', (form.elements.namedItem('lastName') as HTMLInputElement).value);
-    payload.append('Email', (form.elements.namedItem('email') as HTMLInputElement).value);
-    payload.append('Phone', (form.elements.namedItem('phone') as HTMLInputElement).value);
-    payload.append('Course', (form.elements.namedItem('course') as HTMLSelectElement).value);
-    payload.append('Heard Via', (form.elements.namedItem('source') as HTMLSelectElement).value);
-    payload.append('_cc', 'Chiomaekeneobi@gmail.com');
-    payload.append('_subject', `New Enrollment: ${(form.elements.namedItem('firstName') as HTMLInputElement).value} — ${(form.elements.namedItem('course') as HTMLSelectElement).value}`);
-    payload.append('_captcha', 'false');
-    payload.append('_template', 'table');
+    const firstName = (form.elements.namedItem('firstName') as HTMLInputElement).value;
+    const course = (form.elements.namedItem('course') as HTMLSelectElement).value;
 
     setLoading(true);
     try {
-      const res = await fetch('https://formsubmit.co/chiomaobi587@gmail.com', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: payload,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'First Name': firstName,
+          'Last Name': (form.elements.namedItem('lastName') as HTMLInputElement).value,
+          'Email': (form.elements.namedItem('email') as HTMLInputElement).value,
+          'Phone': (form.elements.namedItem('phone') as HTMLInputElement).value,
+          'Course': course,
+          'Heard Via': (form.elements.namedItem('source') as HTMLSelectElement).value,
+          _to: 'chiomaobi587@gmail.com',
+          _cc: 'Chiomaekeneobi@gmail.com',
+          _subject: `New Enrollment: ${firstName} — ${course}`,
+        }),
       });
       if (!res.ok) throw new Error('Failed');
       closeEnroll();

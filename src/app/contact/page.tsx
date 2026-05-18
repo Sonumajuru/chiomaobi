@@ -11,23 +11,22 @@ export default function ContactPage() {
   const handleContact = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const payload = new FormData();
-    payload.append('First Name', (form.elements.namedItem('firstName') as HTMLInputElement).value);
-    payload.append('Last Name', (form.elements.namedItem('lastName') as HTMLInputElement).value);
-    payload.append('Email', (form.elements.namedItem('email') as HTMLInputElement).value);
-    payload.append('Phone', (form.elements.namedItem('phone') as HTMLInputElement).value);
-    payload.append('Interested In', (form.elements.namedItem('interest') as HTMLSelectElement).value);
-    payload.append('Message', (form.elements.namedItem('message') as HTMLTextAreaElement).value);
-    payload.append('_subject', 'New Contact Form Message – Tech Bloom');
-    payload.append('_captcha', 'false');
-    payload.append('_template', 'table');
 
     setLoading(true);
     try {
-      const res = await fetch('https://formsubmit.co/techbloomltd@gmail.com', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: payload,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'First Name': (form.elements.namedItem('firstName') as HTMLInputElement).value,
+          'Last Name': (form.elements.namedItem('lastName') as HTMLInputElement).value,
+          'Email': (form.elements.namedItem('email') as HTMLInputElement).value,
+          'Phone': (form.elements.namedItem('phone') as HTMLInputElement).value,
+          'Interested In': (form.elements.namedItem('interest') as HTMLSelectElement).value,
+          'Message': (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+          _to: 'techbloomltd@gmail.com',
+          _subject: 'New Contact Form Message – Tech Bloom',
+        }),
       });
       if (!res.ok) throw new Error('Failed');
       showToast('✅ Message sent! Our team will reply shortly.');
